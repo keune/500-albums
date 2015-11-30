@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+	<title>Rolling Stone's Best 500 Albums</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.0/mustache.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			var template = $('#tmpl').html();
+			$.getJSON('data.json', function(data) {
+				var html = '';
+				var albums = data.collection1.reverse();
+				albums.forEach(function(album) {
+					//html += '<p>' + album.number + ' - ' + album.name + '</p>';
+					html += Mustache.to_html(template, album);
+				});
+				$('#content').html(html);
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="content"></div>
+	<script id="tmpl" type="x-tmpl-mustache">
+  		<p>{{number}} - {{name}}</p>
+	</script>
+</body>
+</html>
